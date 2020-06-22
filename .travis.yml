@@ -3,19 +3,19 @@ services:
         - docker
 
 before_install:
-        - docker build -t sachipat/react-checkpoint -f ./client/Dockerfile.dev ./client/
+        - docker build -t sachipat/react-checkpoint -f ./client/Dockerfile.dev ./client/.
 
 script:
-        docker run -e CI=true -it sachipat/react-checkpoint npm test
+        - docker run -e CI=true -it sachipat/react-checkpoint npm test
 after_success:
-        docker build -t sachipat/multi-client ./client
-        docker build -t sachipat/multi-nginx ./nginx
-        docker build -t sachipat/multi-server ./server
-        docker build -t sachipat/multi-worker ./worker
+        - docker build -t sachipat/multi-client ./client
+        - docker build -t sachipat/multi-nginx ./nginx
+        - docker build -t sachipat/multi-server ./server
+        - docker build -t sachipat/multi-worker ./worker
 
-echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin 
+        - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin 
 
-docker push sachipat/multi-client
-docker push sachipat/multi-nginx
-docker push sachipat/multi-server
-docker push sachipat/multi-worker
+        - docker push sachipat/multi-client
+        - docker push sachipat/multi-nginx
+        - docker push sachipat/multi-server
+        - docker push sachipat/multi-worker
