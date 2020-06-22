@@ -12,8 +12,10 @@ after_success:
         - docker build -t sachipat/multi-nginx ./nginx
         - docker build -t sachipat/multi-server ./server
         - docker build -t sachipat/multi-worker ./worker
+
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
-        - docker push sachipat/multi-client
+          #push the images
         - docker push sachipat/multi-nginx
+        - docker push sachipat/multi-client
         - docker push sachipat/multi-server
         - docker push sachipat/multi-worker
